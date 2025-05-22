@@ -1,5 +1,8 @@
 <script setup>
 import { reactive } from 'vue'
+import Titulo from './components/Titulo.vue'
+import Calculadora from './components/Calculadora.vue'
+import Visor from './components/Visor.vue'
 
 const state = reactive({
   num1: 0,
@@ -27,43 +30,13 @@ function calcular() {
 </script>
 <template>
   <div class="container">
-    <header class="p-5 mb-4 mt-4 bg-light rounded-3">
-      <h1>Calculadora Aritimética</h1>
-    </header>
-    <form class="form">
-      <div class="row">
-        <div class="col-12">
-          <select
-            @change="(event) => (state.operacao = event.target.value)"
-            class="form-control mb-4"
-          >
-            <option value="adicao">Adição</option>
-            <option value="subitracao">Subitração</option>
-            <option value="multiplicacao">Multiplicação</option>
-            <option value="divisao">Divisão</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-6">
-          <input
-            @keyup="state.num1 = $event.target.value"
-            type="text"
-            class="form-control"
-            placeholder="Primeiro número"
-          />
-        </div>
-        <div class="col-6">
-          <input
-            @keyup="state.num2 = $event.target.value"
-            type="text"
-            class="form-control"
-            placeholder="Segundo número"
-          />
-        </div>
-      </div>
-    </form>
-    <h2 class="text-center mt-4">O resultado é: {{ calcular() }}</h2>
+    <Titulo />
+    <Calculadora
+      :num1="(event) => (state.num1 = event.target.value)"
+      :num2="(event) => (state.num2 = event.target.value)"
+      :trocar-operacao="(event) => (state.operacao = event.target.value)"
+    />
+    <Visor :resultado="calcular()" />
   </div>
 </template>
 <style></style>
